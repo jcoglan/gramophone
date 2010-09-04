@@ -1,0 +1,3 @@
+require './gramophone'
+run Gramophone
+
