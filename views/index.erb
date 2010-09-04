@@ -3,17 +3,25 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>Gramophone</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
     <script type="text/javascript" src="/jquery.js"></script>
     <script type="text/javascript" src="/soundmanager2.js"></script>
+    <script  type="text/javascript"src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<%= google_maps_key %>"></script>
     <script type="text/javascript" src="/gramophone.js"></script>
   </head>
   <body>
+    
+    <div class="map"></div>
+    
+    <div class="header">
+      <h1><em>Gramophone</em> Another time, another place&hellip;</h1>
+    </div>
     
     <script type="text/javascript">
       soundManager.debugMode = false;
       soundManager.url = '/swf/';
       
-      Gramophone.play('Beatles Help');
+      Gramophone.boot();
     </script>
     
   </body>

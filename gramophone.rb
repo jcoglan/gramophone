@@ -11,6 +11,11 @@ class Gramophone < Sinatra::Base
   SEVEN_DIGITAL = 'http://api.7digital.com/1.2/'
   OAUTH_KEY = 'musichackday'
   
+  GOOGLE_MAPS_KEYS = {
+    'localhost'               => 'ABQIAAAArVbgzt5nxAQAZ_iB_77caBT7shr1loYhFsWfvEZcxpC1gbbLqxREA5dNQbQglvNLeYqZzMz6Y1A3Vw',
+    'gramophone.jcoglan.com'  => 'ABQIAAAArVbgzt5nxAQAZ_iB_77caBR-DY5kwz4F-N5FDRJUYzXRpiZT8BRxOW5nn6MqeA7qyBiAZp71FNzMUQ'
+  }
+  
   set :public, ROOT + '/public'
   set :views,  ROOT + '/views'
   set :static, true
@@ -40,6 +45,10 @@ class Gramophone < Sinatra::Base
       Net::HTTPRedirection === response ?
           redirect_target(response['location']) :
           response.body.strip == '' ? nil : url
+    end
+    
+    def google_maps_key
+      GOOGLE_MAPS_KEYS[request.host]
     end
   end
 end
