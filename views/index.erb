@@ -13,8 +13,20 @@
     
     <div class="map"></div>
     
-    <div class="header">
-      <h1><em>Gramophone</em> Another time, another place&hellip;</h1>
+    <div class="ui">
+      <div class="header">
+        <h1><em>Gramophone</em> Another time, another place&hellip;</h1>
+      </div>
+      
+      <form action="/search" method="get">
+        <label for="month">Month</label> <span class="month"></span>
+        <label for="year">Year</label> <span class="year"></span>
+        <input type="submit" value="Go">
+      </form>
+      
+      <div class="playlist">
+        <ul></ul>
+      </div>
     </div>
     
     <script type="text/javascript">
