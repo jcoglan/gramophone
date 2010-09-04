@@ -39,7 +39,7 @@ class Gramophone < Sinatra::Base
       response = Net::HTTP.get_response(URI.parse(url))
       Net::HTTPRedirection === response ?
           redirect_target(response['location']) :
-          url
+          response.body.strip == '' ? nil : url
     end
   end
 end
