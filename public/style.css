@@ -56,6 +56,19 @@ body {
   color:          #000;
 }
 
+.playlist li.searching {
+  color:          #f80046;
+}
+
+.playlist li.failed {
+  color:          #ccc;
+}
+
+.playlist li.playing {
+  color:          #000;
+  font-weight:    bold;
+}
+
 .map {
   position:       absolute;
   left:           0;
