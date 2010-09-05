@@ -17,8 +17,8 @@ Gramophone = {
       years.push(year);
       year += 1;
     }
-    this._createMenu('month', this.MONTHS);
-    this._createMenu('year', years);
+    this.createMenu('month', this.MONTHS);
+    this.createMenu('year', years, true);
     
     $('form').submit(function() {
       Gramophone.search();
@@ -26,7 +26,7 @@ Gramophone = {
     });
   },
   
-  _createMenu: function(id, values) {
+  createMenu: function(id, values, selectLast) {
     var container = $('.' + id),
         select    = '<select id="' + id + '" name="' + id + '">';
     
@@ -36,6 +36,11 @@ Gramophone = {
     }
     select += '</select>';
     container.html(select);
+    
+    if (selectLast) {
+      var last = values[values.length-1];
+      container.find('option[value=' + last + ']')[0].selected = true;
+    }
   },
   
   bootMap: function() {
@@ -70,6 +75,8 @@ Gramophone = {
   },
   
   updatePlaylist: function(songs) {
+    songs.sort(Gramophone.compareSongs);
+    
     var playlist = $('.playlist ul');
     playlist.html('');
     $.each(songs, function(i, song) {
@@ -86,6 +93,17 @@ Gramophone = {
       if (!response.url) return;
       soundManager.play(title, response.url);
     });
+  },
+  
+  compareSongs: function(a, b) {
+    return a.artist < b.artist ?
+           -1 :
+           a.artist > b.artist ?
+           1 :
+           a.song < b.song ?
+           -1 :
+           a.song > b.song ?
+           1 : 0;
   },
   
   JSONP: {

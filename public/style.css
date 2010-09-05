@@ -21,6 +21,10 @@ body {
   margin:         0 0 16px;
 }
 
+.header {
+  background:     #fff url(/gramophone.png) 230px 20px no-repeat;
+}
+
 .header h1 {
   font-size:      1em;
   font-weight:    normal;
@@ -36,6 +40,21 @@ body {
 
 form {
   font-size:      0.8em;
+}
+
+.playlist ul {
+  margin:         0;
+  padding:        0;
+  list-style:     circle inside;
+  font-size:      0.8em;
+  height:         300px;
+  overflow-y:     scroll;
+}
+
+.playlist li {
+  margin:         0;
+  padding:        0;
+  cursor:         pointer;
 }
 
 .map {
