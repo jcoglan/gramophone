@@ -3,7 +3,7 @@ body {
   padding:        0;
   background:     #000;
   color:          #444;
-  font:           15px/1.5 FreeSans, Helvetica, Arial, sans-serif;
+  font:           13px/1.5 FreeSans, Helvetica, Arial, sans-serif;
   height:         100%;
 }
 
@@ -26,27 +26,22 @@ body {
 }
 
 .header h1 {
-  font-size:      1em;
+  font-size:      1.1em;
   font-weight:    normal;
   margin:         0;
 }
 
 .header h1 em {
   display:        block;
-  font-size:      2em;
+  font-size:      2.2em;
   font-style:     normal;
   font-weight:    bold;
-}
-
-form {
-  font-size:      0.8em;
 }
 
 .playlist ul {
   margin:         0;
   padding:        0;
   list-style:     circle inside;
-  font-size:      0.8em;
   height:         300px;
   overflow-y:     scroll;
 }
@@ -57,11 +52,28 @@ form {
   cursor:         pointer;
 }
 
+.playlist li:hover {
+  color:          #000;
+}
+
 .map {
   position:       absolute;
   left:           0;
   top:            0;
   width:          100%;
   height:         100%;
+}
+
+.track {
+  width:          200px;
+  height:         300px;
+}
+
+.track span {
+  display:        block;
+}
+
+.track .artist {
+  font-weight:    bold;
 }
 

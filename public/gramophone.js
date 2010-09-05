@@ -82,16 +82,35 @@ Gramophone = {
     $.each(songs, function(i, song) {
       var songListing = $('<li>' + song.artist + ' - ' + song.song + '</li>');
       songListing.click(function() {
-        Gramophone.play(song.artist + ' ' + song.song);
+        Gramophone.play(song);
       });
       playlist.append(songListing);
     });
   },
   
-  play: function(title) {
-    $.getJSON('/mp3', {title: title}, function(response) {
-      if (!response.url) return;
-      soundManager.play(title, response.url);
+  play: function(song) {
+    var self = this;
+    
+    $.getJSON('/track', {artist: song.artist, title: song.song}, function(response) {
+      if (!response.preview) return;
+      
+      self._map.openInfoWindowHtml(new GLatLng(song.lat, song.lng),
+          '<div class="track">' +
+            '<img src="' + response.album.image.replace(/_\d+\.jpg$/, '_200.jpg') + '">' + 
+            '<span class="artist">' + response.artist + '</span>' +
+            '<span class="title">' + response.title + '</span>' +
+            '<span class="album">(' + response.album.title + ')</span>' +
+            '<span class="venue">@ ' + song.venue + '</span>' +
+          '</div>');
+      
+      if (self._currentSound) self._currentSound.stop();
+      
+      self._currentSound = soundManager.createSound({
+        id:       response.title,
+        url:      response.preview,
+        onfinish: function() { self._map.closeInfoWindow() }
+      });
+      self._currentSound.play();
     });
   },
   

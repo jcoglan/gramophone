@@ -24,11 +24,21 @@ class Gramophone < Sinatra::Base
     erb :index
   end
   
-  get '/mp3' do
-    doc   = xml_from_7digital('track/search', :q => params[:title])
+  get '/track' do
+    query = "#{params[:artist]} #{params[:title]}".gsub(/\w+([^\w\s]+\w+)+/, '').gsub(/[^a-z0-9\s]/i, '')
+    doc   = xml_from_7digital('track/search', :q => query)
     track = (doc / 'track').first
     url   = "#{SEVEN_DIGITAL}track/preview?oauth_consumer_key=#{OAUTH_KEY}&country=GB&trackid=#{track[:id]}"
-    JSON.unparse('url' => redirect_target(url))
+    
+    JSON.unparse(
+      'title'   => (track / 'title').first.inner_html,
+      'artist'  => (track / 'artist name').first.inner_html,
+      'album'   => {
+        'title' => (track / 'release title').first.inner_html,
+        'image' => (track / 'release image').first.inner_html
+      },
+      'preview' => redirect_target(url)
+    )
   end
   
   helpers do
