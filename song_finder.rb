@@ -28,13 +28,18 @@ module Gramophone
         event.performances.each do |performance|
           next unless setlist = performance.setlist
           setlist.setlist_items.each do |item|
-            list << {
+            item_data = {
               :artist => performance.artist.name,
               :song   => item.name,
               :venue  => event.venue.name,
               :lat    => event.venue.glat.to_f,
               :lng    => event.venue.glng.to_f
             }
+            begin
+              JSON.unparse(item_data)
+              list << item_data
+            rescue
+            end
           end
         end
         list
